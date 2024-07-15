@@ -1,0 +1,31 @@
+class Solution {
+    // Function to sort a linked list of 0s, 1s and 2s.
+    static Node segregate(Node head) {
+        // add your code here
+        Node zero = new Node(0);
+        Node one = new Node(0);
+        Node two = new Node(0);
+        
+        Node zeroNode = zero;
+        Node oneNode = one;
+        Node twoNode = two;
+        Node curr = head;
+        while(curr != null){
+            if(curr.data == 0){
+                zeroNode.next = curr;
+                zeroNode = zeroNode.next;
+            }else if(curr.data == 1){
+                oneNode.next = curr;
+                oneNode = oneNode.next;
+            }else{
+                twoNode.next = curr;
+                twoNode = twoNode.next;
+            }
+            curr = curr.next;
+        }
+        zeroNode.next = one.next != null? one.next:two.next;
+        oneNode.next = two.next;
+        twoNode.next = null;
+        return zero.next; 
+    }
+}

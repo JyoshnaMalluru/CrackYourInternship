@@ -1,0 +1,29 @@
+class Solution
+{
+    Node compute(Node head)
+    {
+        // your code here
+        Node curr = head;
+        Node list = new Node(0);
+        Node again = list;
+        while(curr != null){
+         if(!hasGreater(curr)){
+            again.next = curr;
+            again = again.next;
+            }  
+        curr = curr.next;
+        }
+        return list.next;
+    }
+    boolean hasGreater(Node curr){
+        Node prev = curr;
+        while(curr != null){
+            if(prev.data < curr.data){
+                return true;
+            }
+            curr= curr.next;
+        }
+        return false;
+    }
+}
+  

@@ -1,0 +1,19 @@
+class Solution {
+    public ListNode middleNode(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+        while(fast != null && fast.next != null){
+            slow =slow.next;
+            fast = fast.next.next;
+        }
+        ListNode middle = slow;
+        ListNode node = new ListNode(0);
+        ListNode list  = node;
+        while(middle != null){
+            list.next = middle;
+            list = list.next;
+            middle= middle.next;
+        }
+        return node.next;
+    }
+}

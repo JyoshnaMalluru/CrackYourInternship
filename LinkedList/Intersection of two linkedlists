@@ -1,0 +1,34 @@
+public class Solution {
+    int size(ListNode head){
+        int count = 0;
+        while(head != null){
+            count++;
+            head = head.next;
+        }
+        return count;
+    }
+    ListNode modifiedList(ListNode head,int count){
+        while(head != null){
+            if(count == 0){
+                return head;
+            }
+            count--;
+            head = head.next;
+        }
+        return head;
+    }
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        int listA = size(headA);
+        int listB = size(headB);
+        if(listA > listB){
+            headA = modifiedList(headA,listA-listB);
+        }else if(listB>listA) {
+            headB = modifiedList(headB,listB-listA);
+        }
+        while(headA != headB){
+            headA = headA.next;
+            headB = headB.next;
+        }
+        return headA;
+    }
+}

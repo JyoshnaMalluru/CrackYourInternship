@@ -1,0 +1,15 @@
+class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        ArrayList<Integer> lists = new ArrayList<>();
+        inorder(root,lists);
+        return lists;
+    }
+    public void inorder(TreeNode root,ArrayList<Integer> lists){
+        if(root == null){
+            return;
+        }
+        inorder(root.left,lists);
+        lists.add(root.val);
+        inorder(root.right,lists);
+    }
+}

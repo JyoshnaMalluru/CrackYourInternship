@@ -1,0 +1,14 @@
+class Solution {
+    public int minCost(String colors, int[] neededTime) {
+        int totalMin = 0;
+        for(int i=1;i<neededTime.length;i++){
+           if(colors.charAt(i) == colors.charAt(i-1)){
+                totalMin += Math.min(neededTime[i],neededTime[i-1]);
+                if(neededTime[i]<neededTime[i-1]){
+                    neededTime[i]=neededTime[i-1];
+                }
+            }
+        }
+        return totalMin;
+    }
+}

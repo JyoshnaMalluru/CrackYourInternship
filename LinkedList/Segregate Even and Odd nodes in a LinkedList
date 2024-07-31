@@ -1,0 +1,23 @@
+class Solution {
+    Node divide(Node head) {
+        // code here
+        Node even = new Node(0);
+        Node odd = new Node(0);
+        Node evenList = even;
+        Node oddList = odd;
+        Node temp = head;
+        while(temp != null){
+            if(temp.data%2 != 0){
+                oddList.next = temp;
+                oddList = oddList.next;
+            }else{
+                evenList.next = temp;
+                evenList = evenList.next;
+            }
+            temp = temp.next;
+        }
+        evenList.next = odd.next;
+        oddList.next = null;
+        return even.next;
+    }
+}

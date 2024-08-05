@@ -1,0 +1,61 @@
+class Solution
+{
+    //Function to find number of strongly connected components in the graph.
+    public void dfs(ArrayList<ArrayList<Integer>> transpose,int curr,boolean vis[]){
+        if(vis[curr]){
+            return;
+        }
+        vis[curr] = true;
+        for(int i=0;i<transpose.get(curr).size();i++){
+            Integer e = transpose.get(curr).get(i);
+            if(!vis[e]){
+                dfs(transpose,e,vis);
+            }
+        }
+    }
+    public void topsort(Stack<Integer> stk,boolean vis[],int curr,ArrayList<ArrayList<Integer>> adj){
+        if(vis[curr]){
+            return;
+        }
+        vis[curr] = true;
+        for(int i=0;i<adj.get(curr).size();i++){
+            Integer e = adj.get(curr).get(i);
+            if(!vis[e]){
+                topsort(stk,vis,e,adj);
+            }
+        }
+        stk.push(curr);
+    }
+    public int kosaraju(int V, ArrayList<ArrayList<Integer>> adj)
+    {
+        //code here
+        Stack<Integer> stk = new Stack<>();
+        boolean vis[] = new boolean[V];
+        for(int i=0;i<V;i++){
+            if(!vis[i]){
+                topsort(stk,vis,i,adj);   
+            }
+        }
+        
+        ArrayList<ArrayList<Integer>> transpose = new ArrayList<>();
+        for(int i=0;i<V;i++){
+            vis[i] = false;
+            transpose.add(i,new ArrayList<>());
+        }
+        for(int i=0;i<V;i++){
+            for(Integer it : adj.get(i)){
+                transpose.get(it).add(i);
+            }
+        }
+        
+        int count =0;
+        while(!stk.isEmpty()){
+            int curr = stk.pop();
+            if(!vis[curr]){
+                dfs(transpose,curr,vis);
+                count++;
+            }
+        }
+        return count;
+    }
+}

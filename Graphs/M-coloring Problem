@@ -1,0 +1,45 @@
+
+class solve {
+    // Function to determine if graph can be coloured with at most M colours
+    // such
+    // that no two adjacent vertices of graph are coloured with same colour.
+    public boolean graphColoring(boolean graph[][], int m, int n) {
+        // Your code here
+        if(n == m || m > n){
+            return true;
+        }
+        
+        int col[] = new int[graph.length];
+        for(int i=0;i<col.length;i++){
+            col[i] = 0;
+        }
+        if(solve(graph,m,col,0,n)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public boolean isSafe(boolean graph[][],int v,int col[],int c,int n){
+        for(int i=0;i<n;i++){
+            if(graph[v][i] && c==col[i]){
+                return false;
+            }
+        }
+        return true;
+    }
+    public boolean solve(boolean graph[][],int m,int col[],int v,int n){
+        if(v==n){
+            return true;
+        }
+        for(int i=1;i<=m;i++){
+            if(isSafe(graph,v,col,i,n)){
+                col[v] = i;
+                if(solve(graph,m,col,v+1,n)){
+                    return true;   
+                }
+                col[v] = 0;
+            }
+        }
+        return false;
+    }
+}

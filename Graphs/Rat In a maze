@@ -1,0 +1,28 @@
+
+class Solution {
+    public ArrayList<String> findPath(int[][] mat) {
+        // Your code here
+        ArrayList<String> ans = new ArrayList<>();
+        if(mat == null || mat.length == 0){
+            return ans;
+        }
+        boolean vis[][] = new boolean[mat.length][mat[0].length];
+        path(mat,ans,vis,"",0,0);
+        return ans;
+    }
+    public void path(int[][] mat,ArrayList<String> ans,boolean vis[][],String str,int i,int j){
+        if(i<0 || i>=mat.length ||j<0 || j>=mat[0].length ||mat[i][j] == 0||vis[i][j] == true){
+            return;
+        }
+        if(i==mat.length-1 && j==mat[0].length-1 &&mat[i][j]==1 && vis[i][j]==false){
+            ans.add(str);
+            return;
+        }
+        vis[i][j] = true;
+        path(mat,ans,vis,str+'D',i+1,j);
+        path(mat,ans,vis,str+'U',i-1,j);
+        path(mat,ans,vis,str+'L',i,j-1);
+        path(mat,ans,vis,str+'R',i,j+1);
+        vis[i][j] = false;
+    }
+}

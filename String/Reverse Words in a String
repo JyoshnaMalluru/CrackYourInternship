@@ -1,0 +1,31 @@
+class Solution {
+    public String reverseWords(String s) {
+        if(s.length()==0){
+            return"";
+        }
+        s = s.trim();
+        Stack<Character> s1 = new Stack<>();
+        Stack<Character> s2 = new Stack<>();
+        for(int i=0;i<s.length();i++){
+            Character ch = s.charAt(i);
+            if(ch != ' '){
+                s1.push(ch);
+            }else if(ch == ' '){
+                while(!s1.isEmpty()){
+                    s2.push(s1.pop());
+                }
+                s2.push(' ');
+            }
+            
+        }
+        
+        while(!s1.isEmpty()){
+            s2.push(s1.pop());
+        }
+        StringBuilder sb = new StringBuilder("");
+        while(!s2.isEmpty()){
+            sb.append(s2.pop());
+        }
+        return sb.toString().replaceAll("\\s+", " ");
+    }
+}

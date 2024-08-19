@@ -1,0 +1,40 @@
+class GfG {
+    Node lca(Node root, int a, int b){
+        if(root == null || root.data == a || root.data ==b){
+            return root;
+        }
+        Node leftSide = lca(root.left,a,b);
+        Node rightSide = lca(root.right,a,b);
+        if(leftSide == null){
+            return rightSide;
+        }
+        if(rightSide == null){
+            return leftSide;
+        }
+        return root;
+    }
+    int getDist(Node root,int x){
+        if(root == null){
+            return -1;
+        }
+        if(root.data == x){
+            return 0;
+        }
+        int leftDist = getDist(root.left,x);
+        int rightDist = getDist(root.right,x);
+        if(leftDist == -1 && rightDist == -1){
+            return -1;
+        }else if(leftDist == -1){
+            return rightDist+1;
+        }else{
+            return leftDist+1;
+        }
+    }
+    int findDist(Node root, int a, int b) {
+        // Your code here
+        Node lca = lca(root,a,b);
+        int path1 = getDist(lca,a);
+        int path2 = getDist(lca,b);
+        return path1+path2;
+    }
+}

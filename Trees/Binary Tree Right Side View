@@ -1,0 +1,45 @@
+class Solution {
+    class Info{
+        TreeNode root;
+        int level;
+        public Info(TreeNode root,int level){
+            this.root = root;
+            this.level = level;
+        }
+    }
+    public List<Integer> rightSideView(TreeNode root) {
+        ArrayList<Integer> ans = new ArrayList<>();
+        if(root == null){
+            return ans;
+        }
+        Queue<Info> q = new LinkedList<>();
+        HashMap<Integer,Integer> map = new HashMap<>();
+        int max =0;
+        q.add(new Info(root,0));
+        q.add(null);
+        while(!q.isEmpty()){
+            Info curr = q.remove();
+            if(curr == null){
+                if(q.isEmpty()){
+                    break;
+                }else{
+                    q.add(null);
+                }
+            }else{
+                map.put(curr.level,curr.root.val);
+                if(curr.root.left != null){
+                    q.add(new Info(curr.root.left,curr.level+1));
+                    max = Math.max(max,curr.level+1);
+                }
+                if(curr.root.right != null){
+                    q.add(new Info(curr.root.right,curr.level+1));
+                    max = Math.max(max,curr.level+1);
+                }
+            }
+        }
+        for(int i=0;i<=max;i++){
+            ans.add(map.get(i));
+        }
+        return ans;
+    }
+}

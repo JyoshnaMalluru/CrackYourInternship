@@ -13,3 +13,23 @@ class Solution {
         return maxPoints;
     }
 }
+
+class Solution {
+    public int maxScore(int[] cardPoints, int k) {
+        int lsum =0, rsum=0, maxSum = 0;
+        for(int i=0;i<k;i++){
+            lsum+=cardPoints[i];
+        }
+        maxSum = lsum;
+        int rIdx = cardPoints.length-1;
+        int i=k-1;
+        while(i>=0){
+            lsum-=cardPoints[i];
+            rsum+=cardPoints[rIdx];
+            rIdx--;
+            i--;
+            maxSum = Math.max(maxSum,lsum+rsum);
+        }
+        return maxSum;
+    }
+}

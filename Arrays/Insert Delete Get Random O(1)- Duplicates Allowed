@@ -1,0 +1,43 @@
+class RandomizedCollection {
+    private HashMap<Integer,Integer> map;
+    private ArrayList<Integer> list;
+    private Random random;
+    public RandomizedCollection() {
+        map = new HashMap<>();
+        list = new ArrayList<>();
+        random = new Random();
+    }
+    
+    public boolean insert(int val) {
+        if(map.containsKey(val)){
+            map.put(val,map.getOrDefault(val,0)+1);
+            list.add(val);
+            return false;
+        }else{
+            map.put(val,1);
+            list.add(val);
+            return true;
+        }
+    }
+    
+    public boolean remove(int val) {
+        if(!map.containsKey(val)){
+            return false;
+        }
+        if(map.get(val)>1){
+            map.put(val,map.get(val)-1);
+        }else{
+            map.remove(val);
+        }
+        list.remove(Integer.valueOf(val));
+        return true;
+    }
+    
+    public int getRandom() {
+       if(list.isEmpty()){
+        return -1;
+       }
+       int randomIndex = random.nextInt(list.size());
+       return list.get(randomIndex);
+    }
+}

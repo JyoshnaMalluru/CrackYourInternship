@@ -1,0 +1,42 @@
+class Solution {
+    public int find(int par[],int x){
+        if(par[x]==x){
+            return x;
+        }
+        return par[x]=find(par,par[x]);
+    }
+    public void union(int a,int b,int[] rank,int par[]){
+        int parA = find(par,a);
+        int parB = find(par,b);
+        if(parA != parB){
+            if(rank[parA]==rank[parB]){
+                par[parB]=parA;
+                rank[parA]++;
+            }else if(rank[parA]>rank[parB]){
+                par[parB]=parA;
+            }else{
+                par[parA]=parB;
+            }
+        }
+        
+    }
+    public int[] findRedundantConnection(int[][] edges) {
+        int par[] = new int[edges.length+1];
+        int val[] = new int[2];
+        int rank[] = new int[edges.length+1];
+        for(int i=1;i<edges.length+1;i++){
+            par[i]=i;
+        }
+        for(int i=0;i<edges.length;i++){
+            int parA = find(par,edges[i][0]);
+            int parB = find(par,edges[i][1]);
+            if(parA==parB){
+                val[0]=edges[i][0];
+                val[1]=edges[i][1];
+            }else{
+                union(edges[i][0],edges[i][1],rank,par);
+            }
+        }
+        return val;   
+    }
+}

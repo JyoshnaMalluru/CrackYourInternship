@@ -1,0 +1,39 @@
+class Solution
+{
+    //Function to find if the given edge is a bridge in graph.
+    static int isBridge(int V, ArrayList<ArrayList<Integer>> adj,int c,int d)
+    {
+        // code here
+        int dt[] = new int[V];
+        int low[] = new int[V];
+        boolean vis[] = new boolean[V];
+        int time = 0;
+        int val[] = new int[]{0};
+        for(int i=0;i<V;i++){
+            if(!vis[i]){
+                dfs(adj,c,d,dt,low,vis,i,-1,time,val);
+            }
+        }
+        return val[0];
+    }
+    static void dfs(ArrayList<ArrayList<Integer>> adj,int c,int d,int dt[],int low[],boolean vis[],int curr,int par,int time,int val[]){
+        vis[curr] = true;
+        dt[curr]=low[curr]= ++time;
+        for(int i=0;i<adj.get(curr).size();i++){
+            Integer e = adj.get(curr).get(i);
+            if(e==par){
+                continue;
+            }else if(!vis[e]){
+                dfs(adj,c,d,dt,low,vis,e,curr,time,val);
+                low[curr] = Math.min(low[curr],low[e]);
+                if(dt[curr]<low[e]){
+                    if((c==curr && d==e)||(c==e && d==curr)){
+                        val[0] = 1;
+                    }
+                }
+            }else{
+                low[curr] = Math.min(low[curr],dt[e]);
+            }
+        }
+    } 
+}

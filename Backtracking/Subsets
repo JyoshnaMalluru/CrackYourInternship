@@ -1,0 +1,21 @@
+class Solution {
+    public List<List<Integer>> total = new ArrayList<>();
+    public void totalsubsets(int[] nums,int idx,List<Integer> list){
+        if(idx==nums.length){
+            total.add(new ArrayList<>(list));
+            return;
+        }
+        list.add(nums[idx]);
+        totalsubsets(nums,idx+1,list);
+        list.remove(list.size()-1);
+        totalsubsets(nums,idx+1,list);
+    }
+    public List<List<Integer>> subsets(int[] nums) {
+        List<Integer> list = new ArrayList<>();
+        totalsubsets(nums,0,list);
+        return total;
+    }
+}
+
+Time Complexity: O(n * 2^n)
+Space Complexity: O(n * 2^n)

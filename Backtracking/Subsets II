@@ -1,0 +1,45 @@
+class Solution {
+    public HashSet<List<Integer>> set = new HashSet<>();
+    public void subsets(int[] nums,int idx,List<Integer> list){
+        if(idx == nums.length){
+            set.add(new ArrayList<>(list));
+            return;
+        }
+        list.add(nums[idx]);
+        subsets(nums,idx+1,list);
+        list.remove(list.size()-1);
+        subsets(nums,idx+1,list);
+    }
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        List<Integer> list = new ArrayList<>();
+        Arrays.sort(nums);
+        subsets(nums,0,list);
+        List<List<Integer>> lists = new ArrayList<>();
+        for(List<Integer> i:set){
+            lists.add(i);
+        }
+        return lists;
+    }
+} TimeComplexity : O(2^n *n)
+
+class Solution {
+    public void totalSubsets(int[] nums,List<Integer> list,int idx,List<List<Integer>> lists){
+        lists.add(new ArrayList<>(list));
+        for(int i=idx;i<nums.length;i++){
+            if(i>idx && nums[i]==nums[i-1]){
+                continue;
+            }
+            list.add(nums[i]);
+            totalSubsets(nums,list,i+1,lists);
+            list.remove(list.size()-1);
+        }
+    }
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+       List<List<Integer>> lists = new ArrayList<>();
+        List<Integer> list = new ArrayList<>();
+        Arrays.sort(nums);
+        totalSubsets(nums,list,0,lists);
+        return lists;
+    }
+}
+TimeComplexity : O(2^n+nlogn)

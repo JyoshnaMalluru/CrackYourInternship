@@ -1,0 +1,34 @@
+class Solution{
+public int findMidIdx(int arr[]){
+  int low = 0;
+  int high = arr.length-1;
+  while(low<high){
+    int mid =low+(high-low)/2;
+    if(arr[low]<=arr[high]){
+        return low;
+    }
+    if(arr[low]<arr[mid]){
+        high=mid;
+    }else{
+        low = mid+1;
+    }
+  }
+   return low;
+}
+public boolean pairInSorted Array(int[] arr,int target){
+  int n = arr.length-1;
+  int l= findMinIdx(arr);
+  int r = (l+n-1)%n;
+  while(l!=r){
+    if(arr[l]+arr[r]==target){
+      return true;
+    }
+    if(arr[l]+arr[r]<target){
+      l=(l+1)%n;
+    }else{
+      r=(n+r-1)%n;
+    }
+  }
+  return false;
+}
+}

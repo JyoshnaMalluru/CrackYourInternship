@@ -1,0 +1,46 @@
+class Main {
+    public static void main(String[] args) {
+        int m= 4;int n=5;
+        char matrix[][] = new char[m][n];
+        int top=0;
+        int bottom = m-1;
+        int left = 0;
+        int right = n-1;
+        boolean val = true;
+        while(top<=bottom && left<=right){
+            char ch = 'X';
+            if(!val){
+                ch = '0';
+            }
+            for(int i=left;i<=right;i++){
+                matrix[top][i]=ch;
+            }
+            for(int i=top+1;i<=bottom;i++){
+                matrix[i][right]=ch;
+            }
+            for(int i=right-1;i>=left;i--){
+                if(top==bottom){
+                    break;
+                }
+                matrix[bottom][i]=ch;
+            }
+            for(int i=bottom-1;i>top;i--){
+                if(left == right){
+                    break;
+                }
+                matrix[i][left]=ch;
+            }
+            left++;
+            right--;
+            top++;
+            bottom--;
+            val = !val;
+        }
+        for(int i=0;i<m;i++){
+            for(int j=0;j<n;j++){
+                System.out.print(matrix[i][j]+" ");
+            }
+            System.out.println();
+        }
+    }
+}

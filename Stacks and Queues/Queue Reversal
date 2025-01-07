@@ -1,0 +1,14 @@
+class Solution {
+    // Function to reverse the queue.
+    public Queue<Integer> reverseQueue(Queue<Integer> queue) {
+        // code here.
+        Stack<Integer> stk = new Stack<>();
+        while(!queue.isEmpty()){
+            stk.push(queue.remove());
+        }
+        while(!stk.isEmpty()){
+            queue.add(stk.pop());
+        }
+        return queue;
+    }
+}

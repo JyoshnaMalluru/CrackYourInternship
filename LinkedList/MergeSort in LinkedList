@@ -1,0 +1,53 @@
+class Solution {
+    // Function to sort the given linked list using Merge Sort.
+    static Node getmid(Node head){
+        if (head == null || head.next == null) {
+            return head; 
+        }
+
+        Node slow = head;
+        Node fast = head.next;
+        while(fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+    static Node mergedll(Node l1,Node l2){
+         Node dummy = new Node(-1); // Dummy node to start merged list
+        Node temp = dummy;
+
+        while (l1 != null && l2 != null) {
+            if (l1.data <= l2.data) {
+                temp.next = l1;
+                l1 = l1.next;
+            } else {
+                temp.next = l2;
+                l2 = l2.next;
+            }
+            temp = temp.next; // Move temp to the last node in merged list
+        }
+
+        // Attach any remaining nodes from l1 or l2
+        if (l1 != null) temp.next = l1;
+        if (l2 != null) temp.next = l2;
+
+        return dummy.next; 
+    }
+    
+    static Node mergeSort(Node head) {
+        // add your code here
+        if (head == null || head.next == null) {
+            return head; 
+        }
+
+        Node mid = getmid(head);
+        Node left = head;
+        Node right = mid.next;
+        mid.next = null;
+        left = mergeSort(left);
+        right = mergeSort(right);
+        
+        return mergedll(left,right);
+    }
+}

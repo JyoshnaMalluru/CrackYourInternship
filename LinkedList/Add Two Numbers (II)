@@ -34,3 +34,54 @@ class Solution {
         return reverse(dummy.next);
     }
 }
+
+
+
+
+
+class Solution {
+    static Node reverse(Node num){
+        Node prev = null;
+        Node curr = num;
+        Node next = null;
+        while(curr != null){
+            next = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = next;
+        }
+        return prev;
+    }
+    static Node omitZeroes(Node num){
+        while(num.data == 0){
+            num=num.next;
+        }
+        return num;
+    }
+    static Node addTwoLists(Node num1, Node num2) {
+        // code here
+        Node val1 = omitZeroes(num1);
+        Node val2 = omitZeroes(num2);
+        val1 = reverse(val1);
+        val2 = reverse(val2);
+        int carry = 0;
+        Node dummy = new Node(-1);
+        Node temp = dummy;
+        while(val1 != null || val2 != null || carry !=0){
+            int sum = carry;
+            if(val1 != null){
+                sum+=val1.data;
+                val1 = val1.next;
+            }
+            if(val2 != null){
+                sum+=val2.data;
+                val2 = val2.next;
+            }
+            
+            carry = sum/10;
+            temp.next = new Node(sum%10);
+            temp=temp.next;
+        }
+        return reverse(dummy.next);
+    }
+}

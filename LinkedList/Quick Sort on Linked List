@@ -1,0 +1,48 @@
+class GfG {
+    public static Node getend(Node node){
+         if(node == null || node.next == null){
+            return node;
+        }
+        Node curr = node;
+        while(curr != null && curr.next != null){
+            curr = curr.next;
+        }
+        return curr;
+    }
+    public static void sort(Node head,Node tail){
+        if(head == null || head == tail){
+            return;
+        }
+        Node pivot = partition(head,tail);
+        sort(head,pivot);
+        sort(pivot.next,tail);
+    }
+    public static void swap(Node node1,Node node2){
+        int temp = node1.data;
+        node1.data = node2.data;
+        node2.data = temp;
+    }
+    public static Node partition(Node head,Node tail){
+        Node pivot = head;
+        Node pre = head;
+        Node curr = head.next;
+        while(curr != tail.next){
+            if(curr.data<pivot.data){
+                swap(curr,pre.next);
+                pre = pre.next;
+            }
+            curr = curr.next;
+        }
+        swap(pre,pivot);
+        return pre;
+    }
+    public static Node quickSort(Node node) {
+        // Your code here
+        if(node == null || node.next == null){
+            return node;
+        }
+        Node tail = getend(node);
+        sort(node,tail);
+        return node;
+    }
+}

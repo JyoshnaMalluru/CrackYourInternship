@@ -1,0 +1,27 @@
+class Solution {
+    int maxRepeating(int k, int[] arr) {
+        // code here
+        HashMap<Integer,Integer> map = new HashMap<>();
+        for(int i: arr){
+            map.put(i,map.getOrDefault(i,0)+1);
+        }
+        ArrayList<Integer>[] list = new ArrayList[arr.length + 1];
+        for(int i:map.keySet()){
+            int freq = map.get(i);
+            if(list[freq] == null){
+                list[freq] = new ArrayList<>();
+            }
+            list[freq].add(i);
+        }
+        int minElement = Integer.MAX_VALUE;
+        for(int i=list.length-1;i>=0;i--){
+            if(list[i]!=null && !list[i].isEmpty()){
+                for (int num : list[i]) {
+                    minElement = Math.min(minElement, num);
+                }
+                return minElement;
+            }
+        }
+        return -1;
+    }
+}
